@@ -2,16 +2,18 @@ import React from "react";
 import { Link } from "react-router-dom";
 import ROUTES from "../../app/routes";
 import { useSelector } from "react-redux";
-import {topicsSelector} from './topicsSlice';
+import {selectTopics} from './topicsSlice';
 
 export default function Topics() {
-  const topics = useSelector(topicsSelector); 
+  const topics = useSelector(selectTopics); 
+  console.log(topics);
+  console.log(Object.keys(topics).length)
 
   return (
     <section className="center">
       <h1>Topics</h1>
       <ul className="topics-list">
-        {Object.values(topics).map((topic) => (
+        {Object.keys(topics).length > 0 ? Object.values(topics).map((topic) => (
           <li className="topic" key={topic.id}>
           <Link to={ROUTES.topicRoute(topic.id)} className="topic-link">
            <div className="topic-container">
@@ -23,7 +25,7 @@ export default function Topics() {
            </div>
          </Link>
           </li>
-        ))}
+        )) : "No Topics" }
       </ul>
       <Link
         to={ROUTES.newTopicRoute()}

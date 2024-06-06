@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
 import ROUTES from "../app/routes";
-import { selectTopics } from "../features/topics/topicsSlice";
+import { selectTopics, addQuizId } from "../features/topics/topicsSlice";
 import { addQuiz } from "../features/quizzes/quizzesSlice";
 import { addCard } from "../features/cards/cardsSlice";
 
@@ -23,8 +23,6 @@ export default function NewQuizForm() {
 
     const cardIds = [];
 
-    // create the new cards here and add each card's id to cardIds
-
     cards.forEach((card) => {
       const cardId = uuidv4();
       cardIds.push(cardId);
@@ -33,8 +31,6 @@ export default function NewQuizForm() {
         id: cardId,
       }))
     });
-    // create the new quiz here
-
 
     const quizId = uuidv4();
 
@@ -44,6 +40,13 @@ export default function NewQuizForm() {
       topicId: topicId,
       cardIds: cardIds
     }));
+
+    dispatch(addQuizId({
+      id: quizId,
+      name: name,
+      topicId: topicId,
+      cardIds: cardIds
+    }))
 
     navigate(ROUTES.quizzesRoute())
   };

@@ -14,8 +14,14 @@ export default function Topic() {
   if(!topic) {
     return <Navigate to={ROUTES.topicsRoute()} replace/>
   }
+
+  console.log("Quizzes", quizzes);
+
+  console.log("Quiz IDs", topics.quizIds);
   
   const quizzesForTopic = topic.quizIds.map((quizId) => quizzes[quizId]);
+
+  console.log("Quizzes for topic", quizzesForTopic)
 
   return (
     <section>
